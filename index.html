@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datos de Temperatura</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Datos de Temperatura</h1>
+  <table id="tablaDatos">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Temperatura</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Los datos de la tabla se cargarán aquí desde JavaScript -->
+    </tbody>
+  </table>
+
+  <script>
+    // Cargar los datos desde el archivo JSON
+    fetch('datos.json')
+      .then(response => response.json())
+      .then(data => {
+        const tabla = document.getElementById('tablaDatos');
+        const tbody = tabla.querySelector('tbody');
+
+        data.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `          
+            <td>${row.dia}</td>
+            <td>${row.hora}</td>
+            <td>${row.valor_medido}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(error => {
+        console.error('Error al cargar los datos:', error);
+      });
+  </script>
+</body>
+</html>
